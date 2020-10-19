@@ -53,8 +53,8 @@ def go_home(motor_pair):
 
 
 
-to_mission(g_motor_pair)
-do_mission(g_motor_pair)
+#to_mission(g_motor_pair)
+#do_mission(g_motor_pair)
 to_next_mission(g_motor)
 to_next_mission2(g_motor_pair)
 to_next_mission3(g_motor)
