@@ -4,7 +4,7 @@ from spike.control import wait_for_seconds, wait_until, Timer
 import math
 
 
-
+#defs
 g_hub = PrimeHub()
 g_motor_pair = MotorPair('A', 'E')
 g_wheel_distance_apart = 14.5
@@ -13,52 +13,34 @@ g_wheel_circumference = 2 * math.pi * g_wheel_radius
 g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 g_motor = Motor('A')
 
+#setting speed
 g_motor.set_default_speed(30)
 
-
-def to_mission(motor_pair):
-    motor_pair.move(85, 'cm', steering=0, speed=25)
-
-
-def do_mission(motor_pair):
-    i = 0
-    while i < 40:
-        motor_pair.move(0.5, 'cm', steering=0, speed=35)
-        print(i)
-        i += 1
-
-def to_next_mission(motor):
+#go to treadmill
+def to_mission(motor_pair, motor):
+    #to step counter
+    motor_pair.move(77, 'cm', steering=0, speed=25)
+    #to bypass stepcounter to treadmill
     motor.run_for_rotations(0.48)
-
-
-def to_next_mission2(motor_pair):
-    motor_pair.move(20, 'cm', steering=0, speed=25)
-
-
-def to_next_mission3(motor):
+    motor_pair.move(21, 'cm', steering=0, speed=25)
     motor.run_for_rotations(-0.40)
+    motor_pair.move(57, 'cm', steering=0, speed=25)
+    motor_pair.move(22, 'cm', steering=-100, speed=25)
+    motor_pair.move(-24, 'cm', steering=0, speed=40)
 
 
-def to_next_mission4(motor_pair):
-    motor_pair.move(40, 'cm', steering=0, speed=25)
-    motor_pair.move(22.5, 'cm', steering=-100, speed=25)
-    motor_pair.move(-23.5, 'cm', steering=0, speed=35)
-
-
+#do treadmill
 def do_next_mission(motor):
     motor.run_for_rotations(3.7)
 
-def go_home(motor_pair):
+#go to chin up bar
+def go_to_chin_up_bar(motor_pair):
     motor_pair.move(70, 'cm', steering=0, speed=70)
 
 
 
-#to_mission(g_motor_pair)
-#do_mission(g_motor_pair)
-to_next_mission(g_motor)
-to_next_mission2(g_motor_pair)
-to_next_mission3(g_motor)
-to_next_mission4(g_motor_pair)
-g_motor.set_default_speed(45)
+to_mission(g_motor_pair, g_motor)
+#set speed
+g_motor.set_default_speed(35)
 do_next_mission(g_motor)
-go_home(g_motor_pair)
+go_to_chin_up_bar(g_motor_pair)
